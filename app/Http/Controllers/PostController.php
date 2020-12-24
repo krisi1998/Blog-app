@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth'])->only('store', 'destroy');
+    }
+
     public function index()
     {
-        $posts = Post::paginate(10);
+        $posts = Post::orderBy('created_at','desc')->with(['user','likes'])->paginate(10);
 
         return view('pages.posts', [
             'posts' => $posts,
@@ -22,9 +27,18 @@ class PostController extends Controller
             'body' => 'required',
         ]);
 
-        auth()->user()->posts()->create([
-            'body' => $request->body,
-        ]);
+        $request->user()->posts()->create($request->only('body'));
+
+        return back();
+    }
+
+    public function destroy(Post $post)
+    {
+        if (!$post->ownedBy(auth()->user())) {
+            return response(null, 409);
+        }
+
+        $post->delete();
 
         return back();
     }

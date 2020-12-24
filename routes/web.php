@@ -6,6 +6,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostLikeController;
+use App\Http\Controllers\UserPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +37,15 @@ Route::post('/login',[LoginController::class,'store']);
 
 Route::post('/logout',[LogoutController::class,'store'])->name('logout');
 
+Route::get('/user/{user:name}/posts', [UserPostController::class,'index'])->name('user.posts');
+
 Route::get('/dashboard',[PagesController::class,'dashboard'])
     ->name('dashboard')
     ->middleware('auth');
 
 Route::get('/posts',[PostController::class,'index'])->name('posts');
 Route::post('/posts',[PostController::class,'store']);
+Route::delete('/posts/{post}',[PostController::class,'destroy'])->name('posts.destroy');
+
+Route::post('/posts/{post}/likes',[PostLikeController::class,'store'])->name('posts.like');
+Route::delete('/posts/{post}/likes',[PostLikeController::class,'destroy'])->name('posts.like');
