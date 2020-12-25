@@ -74,6 +74,7 @@ return [
             'password' => $DATABASE_URL["pass"],
             'charset' => 'utf8',
             'prefix' => '',
+            'strict' => false,
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
