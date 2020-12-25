@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container register-form">
+<div class="container register-form mt-3">
     <form class="form" action="{{ route('register') }}" method="post">
         <div class="note">
             <p>Register</p>
@@ -13,13 +13,13 @@
                     <div class="form-group">
                         <input type="text" class="form-control" name="name" id="name" placeholder="Your Name *" value="{{ old('name') }}"/>
                         @error('name')
-                            {{ $message }}
+                            <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <input type="email" class="form-control" name="email" id="email" placeholder="Email *" value="{{ old('email') }}"/>
                         @error('email')
-                            {{ $message }}
+                            <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     <div class="form-group">
                         <input type="password" class="form-control" name="password" id="password" placeholder="Your Password *" value=""/>
                         @error('password')
-                            {{ $message }}
+                            <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">

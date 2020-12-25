@@ -1,41 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="col">
+    <div class="container">
         @guest
-            <h1>
-                <a href="{{ route('login') }}">Sign in</a>
-                or <a href="{{ route('register') }}">Register</a> to post.
-            </h1>
+            <div class="jumbotron text-center mt-3">
+                <h4>Sign in or Register to post.</h4>
+                <p>
+                    <a class="btn btn-lg btn-primary" href="{{ route('login') }}">Login</a>
+                    <a class="btn btn-lg btn-success" href="{{ route('register') }}">Register</a>
+                </p>
+            </div>
         @endguest
         @auth
-            <form action="{{ route('posts') }}" method="post" class="">
-                @csrf
-                <div class="form-group">
-                    <label for="body">Body</label>
-                    <textarea name="body" id="body" cols="30" rows="4"
-                    class="form-control @error('body') @enderror"
-                    placeholder="Post something!"></textarea>
-                </div>
-
-                @error('body')
-                    <div class="">
-                        {{ $message }}
+            <div class="jumbotron text-center mt-3 p-4">
+                <form action="{{ route('posts') }}" method="post" class="form">
+                    @csrf
+                    <div class="form-group">
+                        <label for="body">New post</label>
+                        <textarea name="body" id="body" cols="30" rows="4"
+                        class="form-control @error('body') @enderror"
+                        placeholder="Post something!"></textarea>
                     </div>
-                @enderror
 
-                <button type="submit" class="btnSubmit">Post</button>
-            </form>
+                    @error('body')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+
+                    <button type="submit" class="btnSubmit">Post</button>
+                </form>
+            </div>
         @endauth
         @if ($posts->count())
-            @foreach ($posts as $post)
-                @include('inc.posts')
-            @endforeach
+            <div class="jumbotron text-left mt-3">
+                @foreach ($posts as $post)
+                    @include('inc.posts')
+                @endforeach
+            </div>
             <div class="row">
                 {{ $posts->links() }}
             </div>
         @else
-            <p>There are no posts.</p>
+            <p class="text-center">There are no posts.</p>
         @endif
     </div>
 @endsection

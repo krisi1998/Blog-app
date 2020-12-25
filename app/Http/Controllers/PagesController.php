@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
@@ -9,7 +10,6 @@ class PagesController extends Controller
     public function index()
     {
         $title = 'Wellcome to Laravel!';
-        //return view('pages.index', compact('title'));
         return view('pages.index')->with ('title',$title);
     }
 
@@ -21,14 +21,9 @@ class PagesController extends Controller
     public function services()
     {
         $data = array(
-            'title' => 'services',
-            'services' => ['web design', 'programing', 'sql'],
+            'title' => 'Services',
+            'services' => ['Service 1', 'Service 2', 'Service 3', 'Service 4'],
         );
         return view('pages.services')->with ($data);
-    }
-
-    public function dashboard()
-    {
-        return view('pages.dashboard');
     }
 }

@@ -29,6 +29,6 @@ class LoginController extends Controller
         {
             return back()->with('status','Invalid Login details');
         }
-        return redirect()->route('dashboard');
+        return redirect()->route('posts');
     }
 }
